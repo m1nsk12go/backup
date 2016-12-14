@@ -1,8 +1,14 @@
 #!/bin/bash
 
+#if [ -z "$1"]; then
+if [ ! "$1"]; then
+    echo "no directory"
+    exit 1
+fi
+
 TARGET=/tmp/backup
 FILE=$TARGET/$2.tar
 
 mkdir $TARGET
 tar cf $FILE $1
-gzip -f $FILE
+gzip -f -9 $FILE
