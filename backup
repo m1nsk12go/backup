@@ -8,8 +8,16 @@ function help_message () {
 	          where DIR is directory to backup"
 }
 
+function do_or_die() {
+	# $1- command, $2- error message
+	eval $1
+	if [ $? -ne 0 ]; then
+		error $2
+		exit $?
+	fi
+}
 #if [ -z "$1"]; then
-if [ ! "$1"]; then
+if [ ! "$1" ]; then
     error "no directory"
 	help_message
     exit 1
@@ -17,18 +25,26 @@ fi
 
 # $1=/etc/profile.d
 
-TARGET=/tmp/backup
+TARGET=/tmp/backup/$USER
 #BNAME=`basename $1`
 BNAME=$(basename $1)
-FILE=$TARGET/$BNAME.tar
+DNAME=$(dirname $1)
+FILE=$TARGET/$BNAME.tgz
 
+
+#1
 #if [! -d $TARGET]; then 
 #	mkdir $TARGET
 #fi
 
+#2
 #if [ ! -d $TARGET]; then; mkdir $TARGET; fi
 
-[ -d $TARGET] || mkdir $TARGET
+#3
+[ -d $TARGET ] || do_or_die "mkdir -p $TARGET" "mkdir $TARGET failed"
 
-tar cf $FILE $1
-gzip -f -9 $FILE
+#if [[ $? != 0 ]]
+#if [ $? -ne 0]; then; ... fi
+
+
+do_or_die "tar czf $FILE $1 -P $DNAME" "tar failed"
