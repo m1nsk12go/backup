@@ -47,4 +47,4 @@ FILE=$TARGET/$BNAME.tgz
 #if [ $? -ne 0]; then; ... fi
 
 
-do_or_die "tar czf $FILE $1 -P $DNAME" "tar failed"
+do_or_die "tar czf $FILE $1 $DNAME" "tar failed"
