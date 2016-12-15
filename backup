@@ -4,7 +4,7 @@
 function error() { cat <<< "$@" 1>&2;}
 
 function help_message () {
-    echo "Usage: $(basename $0) DIR
+    echo "Usage: $(basename $0) USER DIR TARGET
 	          where DIR is directory to backup"
 }
 
@@ -16,20 +16,24 @@ function do_or_die() {
 		exit $?
 	fi
 }
-#if [ -z "$1"]; then
-if [ ! "$1" ]; then
-    error "no directory"
+
+
+# $1=/etc/profile.d
+# $2=target
+
+# if [ ! "$1" ]; then
+
+if [ -z "$1" -o -z "$2" ]; then
+    error "something missing"
 	help_message
     exit 1
 fi
 
-# $1=/etc/profile.d
-
-TARGET=/tmp/backup/$USER
+TARGET=$2
 #BNAME=`basename $1`
 BNAME=$(basename $1)
 DNAME=$(dirname $1)
-FILE=$TARGET/$BNAME.tgz
+FILE=$TARGET/$BNAME_$3.tgz #имя файла место. имя пользователя, дата
 
 
 #1
@@ -47,4 +51,4 @@ FILE=$TARGET/$BNAME.tgz
 #if [ $? -ne 0]; then; ... fi
 
 
-do_or_die "tar czf $FILE $1 $DNAME" "tar failed"
+do_or_die "tar czf $FILE -C $DNAME $BNAME" "tar failed"
