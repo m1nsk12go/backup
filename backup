@@ -52,3 +52,4 @@ FILE=$TARGET/${BNAME}_${3}.tgz #имя файла место. имя польз�
 
 
 do_or_die "tar czf $FILE -C $DNAME $BNAME" "tar failed"
+echo $TARGET/$BNAME
