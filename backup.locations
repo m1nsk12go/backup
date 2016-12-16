@@ -1,4 +1,4 @@
-Dmitry;/etc/profile.d
-Dmitry;/home/dmitry;/tmp/mytest
-Dmitry;/home/dmitry;;5
-Dmitry;/etc/default;/tmp/etc;10
+# Dmitry;/etc/profile.d
+# Dmitry;/home/dmitry;/tmp/mytest
+# Dmitry;/home/dmitry;;5
+# Dmitry;/etc/default;/tmp/etc;10
